@@ -4,10 +4,11 @@ class PixelGrid {
     gridSize = 16;
     backgroundColor = '';
     storageName = 'pixelArtGrid';
-    colorizedCellIds = localStorage.getItem(this.storageName).split(',');
+    colorizedCellIds;
     
     constructor() {
         this.setBackgroundColor();
+        this.setColorizedCellsIds();
     }
 
     init() {
@@ -106,6 +107,18 @@ class PixelGrid {
         cells.forEach(cell => cell.style.backgroundColor = '')
         this.colorizedCellIds = [];
         this.storeGrid();
+    }
+
+    setColorizedCellsIds() {
+        const savedCellsValues = localStorage.getItem(this.storageName)
+        
+        if ( savedCellsValues !== null && savedCellsValues !== undefined ) {
+            this.colorizedCellIds = savedCellsValues.split(',');
+
+            return;
+        }
+
+        this.colorizedCellIds = [];
     }
 }
 
